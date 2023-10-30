@@ -50,7 +50,7 @@ def eda():
     st.header('Brazilian E-Commerce EDA', divider='rainbow')
     st.subheader('Daily Orders')
 
-    all_data = pd.read_csv("merge-dataset.csv")
+    all_data = pd.read_csv("dashboard/merge-dataset.csv")
 
     datetime_columns = ["order_purchase_timestamp", "order_purchase_date", "order_estimated_delivery_date", "order_delivered_date"]
     all_data.sort_values(by="order_purchase_date", inplace=True)
@@ -203,7 +203,7 @@ def rfm_analysis():
     import matplotlib.pyplot as plt
     import seaborn as sns
 
-    all_data = pd.read_csv("merge-dataset.csv")
+    all_data = pd.read_csv("../dashboard/merge-dataset.csv")
 
     st.markdown(f"# {list(page_connector_with_funcs.keys())[2]}")
     datetime_columns = ["order_purchase_timestamp", "order_purchase_date", "order_estimated_delivery_date", "order_delivered_date"]
