@@ -40,8 +40,6 @@ def intro():
         """
     )
 
-all_data = pd.read_csv("merge-dataset.csv")
-
 def eda():
     import streamlit as st
     import matplotlib.pyplot as plt
@@ -51,6 +49,8 @@ def eda():
     st.title("Brazilian E-Commerce Public Dashboard :sparkles:") 
     st.header('Brazilian E-Commerce EDA', divider='rainbow')
     st.subheader('Daily Orders')
+    
+    all_data = pd.read_csv("merge-dataset.csv")
 
     datetime_columns = ["order_purchase_timestamp", "order_purchase_date", "order_estimated_delivery_date", "order_delivered_date"]
     all_data.sort_values(by="order_purchase_date", inplace=True)
@@ -205,17 +205,20 @@ def rfm_analysis():
 
     st.markdown(f"# {list(page_connector_with_funcs.keys())[2]}")
     datetime_columns = ["order_purchase_timestamp", "order_purchase_date", "order_estimated_delivery_date", "order_delivered_date"]
-    all_data.sort_values(by="order_purchase_date", inplace=True)
-    all_data.reset_index(inplace=True)
+    
+    main_data = pd.read_csv("../dashboard/rfm-dataset.csv")
+    
+    main_data.sort_values(by="order_purchase_date", inplace=True)
+    main_data.reset_index(inplace=True)
     for column in datetime_columns:
-        all_data[column] = pd.to_datetime(all_data[column])
+        main_data[column] = pd.to_datetime(main_data[column])
 
 
-    min_date = all_data["order_purchase_date"].min()
-    max_date = all_data["order_purchase_date"].max()
+    min_date = main_data["order_purchase_date"].min()
+    max_date = main_data["order_purchase_date"].max()
 
     group_columns = ['order_date_year', 'order_date_month', 'month-year']
-    year_monthly_order = all_data.groupby(group_columns)['order_id'].nunique().reset_index()
+    year_monthly_order = main_data.groupby(group_columns)['order_id'].nunique().reset_index()
 
     year_monthly_order_2017 = year_monthly_order[year_monthly_order['order_date_year'] == 2017]
     year_monthly_order_2018 = year_monthly_order[year_monthly_order['order_date_year'] == 2018]
@@ -238,8 +241,8 @@ def rfm_analysis():
         )
 
 
-    temp_df = all_data[(all_data["order_purchase_date"] >= str(start_date)) & 
-                (all_data["order_purchase_date"] <= str(end_date))]
+    temp_df = main_data[(main_data["order_purchase_date"] >= str(start_date)) & 
+                (main_data["order_purchase_date"] <= str(end_date))]
 
     rfm_df = create_rfm_df(temp_df)
     # rfm_df_score = create_rfm_df_quantile(rfm_df)
