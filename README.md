@@ -1,8 +1,8 @@
 # Brazilian-E-Commerce-Public-Customer-Analysis-and-RFM-Analysis
 
 ## Project Description
-This project contain the code for data analysis project and RFM analysis using brazilian e-Commerce public dataset. 
-![Custom dataset from Dicoding](https://www.dicoding.com/)
+This project contain the code for data analysis project and RFM analysis using brazilian e-Commerce public dataset 
+[| custom dataset from Dicoding](https://www.dicoding.com/).
 
 ## Project Objective
 - Do comprehensive data analysis starting from defining questions to drawing conclusions from the analysis results
@@ -11,11 +11,11 @@ This project contain the code for data analysis project and RFM analysis using b
 
 ## Brazilian E-Commerce Public Dashoard using Streamlit
 ### Homepage
-![Brazilian_E-Commerce_Public_Dashboard](https://github.com/abliskan/RFM-Analysis-Brazilian-E-Commerce-Public/blob/main/asset/images/screenshot-homepage.PNG)
+![Brazilian_E-Commerce_Public_Dashboard](https://github.com/abliskan/RFM-Analysis-Brazilian-E-Commerce-Public/blob/main/asset/images/screenshot-homepage.png)
 ### EDA
-![Brazilian_E-Commerce_Public_Dashboard](https://github.com/abliskan/RFM-Analysis-Brazilian-E-Commerce-Public/blob/main/asset/images/screenshot-EDA.PNG)
+![Brazilian_E-Commerce_Public_Dashboard](https://github.com/abliskan/RFM-Analysis-Brazilian-E-Commerce-Public/blob/main/asset/images/screenshot-EDA.png)
 ### RFM
-![Brazilian_E-Commerce_Public_Dashboard](https://github.com/abliskan/RFM-Analysis-Brazilian-E-Commerce-Public/blob/main/asset/images/screenshot-RFM.PNG)
+![Brazilian_E-Commerce_Public_Dashboard](https://github.com/abliskan/RFM-Analysis-Brazilian-E-Commerce-Public/blob/main/asset/images/screenshot-RFM.jpg)
 
 ## Installation Guide
 ### Setup Environment
