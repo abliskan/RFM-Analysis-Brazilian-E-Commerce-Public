@@ -40,7 +40,7 @@ def intro():
         """
     )
 
-all_data = pd.read_csv("../dashboard/merge-dataset.csv")
+all_data = pd.read_csv("merge-dataset.csv")
 
 def eda():
     import streamlit as st
