@@ -1,15 +1,24 @@
 import streamlit as st
-# import os
 import pandas as pd
 # import altair as alt
+# import os.path
+import os
 from babel.numbers import format_currency
 from eda.eDA import create_monthly_orders_df, create_order_sales_items_df, create_byregion_df, create_pay_type_byregion_df
 from rfm.rFM import create_rfm_df, create_rfm_df_quantile, customer_segment, create_rfm_segment_distribution
+# from pathlib import Path
 
-st.set_page_config(
-    page_title="Home",
-    page_icon="🏠",
-)
+# csv in dashboard folder
+path = os.path.dirname(os.path.abspath(__file__))
+
+# first check whether file exists or not
+data_file_1 = path+"\\"+'merge-dataset.csv'
+
+all_data = pd.read_csv(data_file_1)
+rfm_df_score = pd.read_csv("../data/merge_rfm_dataset.csv")
+
+# all_data = pd.read_csv("./merge-dataset.csv")
+# rfm_df_score = pd.read_csv("../data/merge_rfm_dataset.csv")
 
 def intro():
     import streamlit as st
@@ -44,14 +53,14 @@ def eda():
     import streamlit as st
     import matplotlib.pyplot as plt
     import seaborn as sns
-
+    
+    print("==============Currenly run EDA option!==============\n")
+    
     st.markdown(f"# {list(page_connector_with_funcs.keys())[1]}")
     st.title("Brazilian E-Commerce Public Dashboard :sparkles:") 
     st.header('Brazilian E-Commerce EDA', divider='rainbow')
     st.subheader('Daily Orders')
     
-    all_data = pd.read_csv("merge-dataset.csv")
-
     datetime_columns = ["order_purchase_timestamp", "order_purchase_date", "order_estimated_delivery_date", "order_delivered_date"]
     all_data.sort_values(by="order_purchase_date", inplace=True)
     all_data.reset_index(inplace=True)
@@ -202,23 +211,23 @@ def rfm_analysis():
     import streamlit as st
     import matplotlib.pyplot as plt
     import seaborn as sns
-
+    
+    print("==============Currenly run RFM analysis option!==============\n")
+    
     st.markdown(f"# {list(page_connector_with_funcs.keys())[2]}")
     datetime_columns = ["order_purchase_timestamp", "order_purchase_date", "order_estimated_delivery_date", "order_delivered_date"]
     
-    main_data = pd.read_csv("../dashboard/rfm-dataset.csv")
-    
-    main_data.sort_values(by="order_purchase_date", inplace=True)
-    main_data.reset_index(inplace=True)
+    all_data.sort_values(by="order_purchase_date", inplace=True)
+    all_data.reset_index(inplace=True)
     for column in datetime_columns:
-        main_data[column] = pd.to_datetime(main_data[column])
+        all_data[column] = pd.to_datetime(all_data[column])
 
 
-    min_date = main_data["order_purchase_date"].min()
-    max_date = main_data["order_purchase_date"].max()
+    min_date = all_data["order_purchase_date"].min()
+    max_date = all_data["order_purchase_date"].max()
 
     group_columns = ['order_date_year', 'order_date_month', 'month-year']
-    year_monthly_order = main_data.groupby(group_columns)['order_id'].nunique().reset_index()
+    year_monthly_order = all_data.groupby(group_columns)['order_id'].nunique().reset_index()
 
     year_monthly_order_2017 = year_monthly_order[year_monthly_order['order_date_year'] == 2017]
     year_monthly_order_2018 = year_monthly_order[year_monthly_order['order_date_year'] == 2018]
@@ -241,8 +250,8 @@ def rfm_analysis():
         )
 
 
-    temp_df = main_data[(main_data["order_purchase_date"] >= str(start_date)) & 
-                (main_data["order_purchase_date"] <= str(end_date))]
+    temp_df = all_data[(all_data["order_purchase_date"] >= str(start_date)) & 
+                (all_data["order_purchase_date"] <= str(end_date))]
 
     rfm_df = create_rfm_df(temp_df)
     # rfm_df_score = create_rfm_df_quantile(rfm_df)
@@ -298,7 +307,6 @@ def rfm_analysis():
 
     st.pyplot(fig)
     
-    rfm_df_score = pd.read_csv("../data/merge_rfm_dataset.csv")
     rfm_segment_count = create_rfm_segment_distribution(rfm_df_score)
     
     st.markdown("")
@@ -308,8 +316,7 @@ def rfm_analysis():
     st.markdown("")
     st.subheader('Customer Segments Overview')
     rfm_segment_count.info()
-    fig, ax= plt.subplots(figsize=(10, 5))
-    # data = (rfm_segment_df['segments'].value_counts(normalize=True)*100).reset_index(name = "percentage")
+    fig, ax= plt.subplots(figsize=(10, 5))    
     ax = sns.barplot(
         x=rfm_segment_count['percentage'], 
         y=rfm_segment_count.index,
@@ -342,5 +349,4 @@ page_connector_with_funcs = {
 demo_name = st.sidebar.selectbox("Select a demo", page_connector_with_funcs.keys())
 page_connector_with_funcs[demo_name]()
 
-# Display text in small font for footer
 st.caption('Copyright (c) - Created by Ricky Suhanry - 2023')

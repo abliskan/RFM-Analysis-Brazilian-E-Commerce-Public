@@ -83,14 +83,16 @@ def customer_segment(df):
         r'555|554|544|545|454|455|445': 'Champions'
     }
     # Copy existing dataFrame into new dataFrame
-    df = df.copy()
+    df_cp = df.copy()
     # Replace all instances of RFM score
-    df['segments'] = df['rfm_score'].replace(label, regex=True)
+    df_cp['segments'] = df_cp['rfm_score'].replace(label, regex=True)
     # Count all instrument in segments column
-    df['segments'].value_counts()
+    df_cp['segments'].value_counts()
     
-def create_rfm_segment_distribution(rfm_df_score):
-    rfm_segment_count = rfm_df_score[["segments", "recency", "frequency", "monetary"]].groupby("segments").agg(['count'])
+    return df_cp
+    
+def create_rfm_segment_distribution(df):
+    rfm_segment_count = df[["segments", "recency", "frequency", "monetary"]].groupby("segments").agg(['count'])
     rfm_segment_count["percentage"] = (100 * rfm_segment_count['recency']["count"]/rfm_segment_count['recency']["count"].sum()).round(2)  
     rfm_segment_count.reset_index()
     
