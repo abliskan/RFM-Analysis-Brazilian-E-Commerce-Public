@@ -8,7 +8,7 @@ from eda.eDA import create_monthly_orders_df, create_order_sales_items_df, creat
 from rfm.rFM import create_rfm_df, create_rfm_df_quantile, customer_segment, create_rfm_segment_distribution
 # from pathlib import Path
 
-all_data = pd.read_csv("./merge-dataset.csv")
+all_data = pd.read_csv("/dashboard/merge-dataset.csv")
 rfm_df_score = pd.read_csv("../data/merge_rfm_dataset.csv")
 
 def intro():
