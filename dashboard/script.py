@@ -8,17 +8,8 @@ from eda.eDA import create_monthly_orders_df, create_order_sales_items_df, creat
 from rfm.rFM import create_rfm_df, create_rfm_df_quantile, customer_segment, create_rfm_segment_distribution
 # from pathlib import Path
 
-# csv in dashboard folder
-path = os.path.dirname(os.path.abspath(__file__))
-
-# first check whether file exists or not
-data_file_1 = path+"\\"+'merge-dataset.csv'
-
-all_data = pd.read_csv(data_file_1)
+all_data = pd.read_csv("./merge-dataset.csv")
 rfm_df_score = pd.read_csv("../data/merge_rfm_dataset.csv")
-
-# all_data = pd.read_csv("./merge-dataset.csv")
-# rfm_df_score = pd.read_csv("../data/merge_rfm_dataset.csv")
 
 def intro():
     import streamlit as st
