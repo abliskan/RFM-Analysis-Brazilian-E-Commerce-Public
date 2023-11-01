@@ -11,6 +11,8 @@ from rfm.rFM import create_rfm_df, create_rfm_df_quantile, customer_segment, cre
 path = os.path.dirname(os.path.abspath(__file__))
 data_source = path+'/merge-dataset.csv'
 all_data = pd.read_csv(data_source)
+location = os.path.join(path, 'merge_rfm_dataset.csv')
+rfm_df_score = pd.read_csv(location)
 
 def intro():
     import streamlit as st
@@ -299,7 +301,6 @@ def rfm_analysis():
 
     st.pyplot(fig)
     
-    rfm_df_score = pd.read_csv("../data/merge_rfm_dataset.csv")
     rfm_segment_count = create_rfm_segment_distribution(rfm_df_score)
     
     st.markdown("")
