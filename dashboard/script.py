@@ -8,7 +8,9 @@ from eda.eDA import create_monthly_orders_df, create_order_sales_items_df, creat
 from rfm.rFM import create_rfm_df, create_rfm_df_quantile, customer_segment, create_rfm_segment_distribution
 # from pathlib import Path
 
-rfm_df_score = pd.read_csv("../data/merge_rfm_dataset.csv")
+path = os.path.dirname(os.path.abspath(__file__))
+data_source = path+'/merge-dataset.csv'
+all_data = pd.read_csv(data_source)
 
 def intro():
     import streamlit as st
@@ -46,7 +48,6 @@ def eda():
     
     print("==============Currenly run EDA option!==============\n")
     
-    all_data = pd.read_csv("/dashboard/merge-dataset.csv")
     st.markdown(f"# {list(page_connector_with_funcs.keys())[1]}")
     st.title("Brazilian E-Commerce Public Dashboard :sparkles:") 
     st.header('Brazilian E-Commerce EDA', divider='rainbow')
@@ -204,8 +205,7 @@ def rfm_analysis():
     import seaborn as sns
     
     print("==============Currenly run RFM analysis option!==============\n")
-    
-    all_data = pd.read_csv("/dashboard/merge-dataset.csv")
+        
     st.markdown(f"# {list(page_connector_with_funcs.keys())[2]}")
     datetime_columns = ["order_purchase_timestamp", "order_purchase_date", "order_estimated_delivery_date", "order_delivered_date"]
     
@@ -251,7 +251,7 @@ def rfm_analysis():
 
     st.header('Brazilian E-Commerce RFM | Customer Segmentation', divider='rainbow')
     st.subheader('Best Customer Based on RFM Parameters')
-
+    
     col1_left, col2_middle, col3_right = st.columns(3)
 
     with col1_left:
@@ -299,6 +299,7 @@ def rfm_analysis():
 
     st.pyplot(fig)
     
+    rfm_df_score = pd.read_csv("../data/merge_rfm_dataset.csv")
     rfm_segment_count = create_rfm_segment_distribution(rfm_df_score)
     
     st.markdown("")
