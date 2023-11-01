@@ -45,8 +45,7 @@ pip install -r requirements.txt
 ```
 
 3. Go to the dashboard directory
-
-
+* windows
 ```bash
 cd C:\RFM-Analysis-Brazilian-E-Commerce-Public\dashboard
 ```
@@ -59,4 +58,4 @@ streamlit run [name_file].py
 We can access the application on your desktop by visiting http://localhost:8501/
 
 ## Deploying the dashboard
-- Comming soon | streamlit viz
+<a href="https://rfm-analysis-brazilian-e-commerce-main-ptcczfudwmac87xglem9i.streamlit.app/"> Brazilian E-Commerce Data Analysis Dashboard | Streamlit </a>
